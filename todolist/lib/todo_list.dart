@@ -23,6 +23,7 @@ class _TodoListState extends State<TodoList> {
     final todo = todos[index];
 
     return CheckboxListTile(
+      title: Text(todo.title),
       value: todo.isDone,
       onChanged: (bool? isChecked) {
         if (isChecked != null) {
@@ -34,7 +35,8 @@ class _TodoListState extends State<TodoList> {
 
   final ButtonStyle flatButtonStyle = TextButton.styleFrom(
     backgroundColor: Colors.blue,
-    padding: EdgeInsets.all(8),
+    padding: const EdgeInsets.all(8),
+    primary: Colors.white,
   );
 
   _addTodo() {
@@ -42,7 +44,7 @@ class _TodoListState extends State<TodoList> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('New Todo'),
+          title: const Text('New Todo'),
           content: TextField(
             controller: controller,
             autofocus: true,
@@ -53,7 +55,7 @@ class _TodoListState extends State<TodoList> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               style: flatButtonStyle,
@@ -67,7 +69,7 @@ class _TodoListState extends State<TodoList> {
                   Navigator.of(context).pop();
                 });
               },
-              child: Text('Add'),
+              child: const Text('Add'),
             ),
           ],
         );
@@ -78,7 +80,7 @@ class _TodoListState extends State<TodoList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Todo List')),
+      appBar: AppBar(title: const Text('Todo List')),
       body: ListView.builder(
         itemBuilder: _buildItem,
         itemCount: todos.length,
