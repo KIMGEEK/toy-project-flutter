@@ -3,6 +3,8 @@ import 'package:simple_album/first_page.dart';
 import 'package:simple_album/second_page.dart';
 import 'package:simple_album/third_page.dart';
 
+import 'package:simple_album/image.dart';
+
 void main() => runApp(const MyHomePage());
 
 class MyHomePage extends StatefulWidget {
@@ -15,10 +17,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   TabController? controller;
+  List<Img> imageList = List.empty(growable: true);
+
+  get date => null;
 
   initState() {
     super.initState();
     controller = TabController(length: 3, vsync: this);
+
+    for (int i = 1; i <= 7; i++) {
+      DateTime now = DateTime.now();
+      imageList.add(Img(
+          imagePath: "assets/images/${i.toString()}.jpg",
+          date: "${now.hour.toString()}:${now.minute.toString()}"));
+    }
   }
 
   @override
@@ -32,10 +44,14 @@ class _MyHomePageState extends State<MyHomePage>
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
-        title: Text('My Album'),
+        title: const Text('My Album'),
       ),
       body: TabBarView(
-        children: <Widget>[FirstApp(), SecondApp(), ThirdApp()],
+        children: <Widget>[
+          FirstApp(list: imageList),
+          SecondApp(list: imageList),
+          ThirdApp()
+        ],
         controller: controller,
       ),
       bottomNavigationBar: TabBar(
@@ -48,9 +64,7 @@ class _MyHomePageState extends State<MyHomePage>
           Tab(
             icon: Icon(Icons.looks_two),
           ),
-          Tab(
-            icon: Icon(Icons.photo_album_outlined),
-          ),
+          Tab(icon: Icon(Icons.publish_rounded)),
         ],
         controller: controller,
       ),
