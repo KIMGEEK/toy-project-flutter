@@ -38,7 +38,34 @@ class _HttpAppState extends State<HttpApp> {
       appBar: AppBar(
         title: const Text('CBNU IMAGE COLLECTOR'),
       ),
-      body: Container(child: Center(child: Text('$result'))),
+      body: Container(
+          child: Center(
+              child: data!.isEmpty
+                  ? const Text(
+                      'No Data',
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    )
+                  : ListView.builder(
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                            child: Card(
+                          child: Container(
+                            child: Row(children: <Widget>[
+                              Image.network(
+                                data![index]['image_url'],
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.contain,
+                              ),
+                              Text(data![index]['collection'].toString()),
+                              Text(data![index]['display_sitename'].toString()),
+                            ]),
+                          ),
+                        ));
+                      },
+                      itemCount: data!.length,
+                    ))),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           getJSONData();
@@ -53,6 +80,7 @@ class _HttpAppState extends State<HttpApp> {
     var response = await http.get(Uri.parse(url),
         headers: {"Authorization": "KakaoAK ef09948c786a2300b857b679bc8bc2ad"});
 
+    print(response.body);
     setState(() {
       var dataConvertedToJSON = json.decode(response.body);
       List result = dataConvertedToJSON['documents'];
