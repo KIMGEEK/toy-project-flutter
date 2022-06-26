@@ -78,7 +78,7 @@ class _HttpAppState extends State<HttpApp> {
   Future<String> getJSONData() async {
     var url = 'https://dapi.kakao.com/v2/search/image?target=title&query=충북대';
     var response = await http.get(Uri.parse(url),
-        headers: {"Authorization": "KakaoAK ef09948c786a2300b857b679bc8bc2ad"});
+        headers: {"Authorization": "KakaoAK <your REST api key>"});
 
     print(response.body);
     setState(() {
