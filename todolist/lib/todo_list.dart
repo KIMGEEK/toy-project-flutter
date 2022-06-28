@@ -22,13 +22,19 @@ class _TodoListState extends State<TodoList> {
   Widget _buildItem(BuildContext context, int index) {
     final todo = todos[index];
 
-    return CheckboxListTile(
-      title: Text(todo.title),
-      value: todo.isDone,
-      onChanged: (bool? isChecked) {
-        if (isChecked != null) {
-          _toggleTodo(todo, isChecked);
-        }
+    return GestureDetector(
+      child: Card(
+        child: Text(todo.title),
+        // value: todo.isDone,
+        // onChanged: (bool? isChecked) {
+        //   if (isChecked != null) {
+        //     _toggleTodo(todo, isChecked);
+        //   }
+        // },
+      ),
+      onTap: () {
+        Navigator.of(context)
+            .pushNamed('/sub_detail', arguments: todos[index].title);
       },
     );
   }

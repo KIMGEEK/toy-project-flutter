@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todolist/todo_list.dart';
+import 'package:todolist/sub_detail.dart';
 
 void main() {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
@@ -15,7 +16,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Todo List',
-      home: TodoList(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => TodoList(),
+        '/sub_detail': (context) => SubDetail(),
+      },
     );
   }
 }
