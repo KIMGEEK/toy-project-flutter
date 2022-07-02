@@ -78,13 +78,79 @@ class _DatabaseAppState extends State<DatabaseApp> {
                     return ListView.builder(
                       itemBuilder: (context, index) {
                         Phone phone = (snapshot.data as List<Phone>)[index];
-                        return Card(
-                          child: Column(
-                            children: <Widget>[
-                              Text(phone.name!),
-                              Text(phone.number!),
-                            ],
+                        return ListTile(
+                          title: Text(
+                            phone.name!,
+                            style: TextStyle(fontSize: 20),
                           ),
+                          subtitle: Container(
+                            child: Column(children: <Widget>[
+                              Text(phone.number!),
+                              Container(
+                                height: 1,
+                                color: Colors.blue,
+                              )
+                            ]),
+                          ),
+                          onTap: () async {
+                            TextEditingController controller =
+                                new TextEditingController(text: phone.number);
+
+                            Phone result = await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('${phone.id} : ${phone.name}'),
+                                  content: TextField(
+                                    controller: controller,
+                                    keyboardType: TextInputType.text,
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        phone.number = controller.value.text;
+                                        Navigator.of(context).pop(phone);
+                                      },
+                                      child: Text('Yes'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(phone);
+                                      },
+                                      child: Text('No'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            _updatePhone(result);
+                          },
+                          onLongPress: () async {
+                            Phone result = await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('${phone.id} : ${phone.name}'),
+                                  content: Text('Delete the ${phone.name}?'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(phone);
+                                      },
+                                      child: Text('Yes'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('No'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            _deletePhone(result);
+                          },
                         );
                       },
                       itemCount: (snapshot.data as List<Phone>).length,
@@ -131,6 +197,31 @@ class _DatabaseAppState extends State<DatabaseApp> {
         number: maps[i]['number'].toString(),
         id: maps[i]['id'],
       );
+    });
+  }
+
+  void _updatePhone(Phone phone) async {
+    final Database database = await widget.db;
+    await database.update(
+      'phones',
+      phone.toMap(),
+      where: 'id = ?',
+      whereArgs: [phone.id],
+    );
+    setState(() {
+      phoneList = getPhones();
+    });
+  }
+
+  void _deletePhone(Phone phone) async {
+    final Database database = await widget.db;
+    await database.delete(
+      'phones',
+      where: 'id = ?',
+      whereArgs: [phone.id],
+    );
+    setState(() {
+      phoneList = getPhones();
     });
   }
 }
