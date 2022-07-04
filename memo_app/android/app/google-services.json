@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "861929898377",
+    "project_id": "example-70a2f",
+    "storage_bucket": "example-70a2f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861929898377:android:660e828cb37a52390f6158",
+        "android_client_info": {
+          "package_name": "com.example.memo_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861929898377-pneklcaa79nlqn0fvpeeg3g5g63q4ufm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl0iydSY-zYG_eQZ-2wH05Pc2kfFDVvrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861929898377-pneklcaa79nlqn0fvpeeg3g5g63q4ufm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861929898377:android:e81837403485e5bc0f6158",
+        "android_client_info": {
+          "package_name": "com.rollcake.memo_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861929898377-pneklcaa79nlqn0fvpeeg3g5g63q4ufm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl0iydSY-zYG_eQZ-2wH05Pc2kfFDVvrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861929898377-pneklcaa79nlqn0fvpeeg3g5g63q4ufm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
